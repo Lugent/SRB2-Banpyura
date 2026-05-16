@@ -149,7 +149,7 @@ static void CL_DrawAddonTypes(void)
 		INT32 flags = V_SNAPTOTOP|V_SNAPTOLEFT|MENUCAPS;
 
 		if (addontypes[type] == addontypes_downloaded[type])
-			flags |= V_GREENMAP; // archiNiko: probably shouldn't be effected by MENUCOLOR?
+			flags |= MENUCOLOR;
 		else
 			flags |= MENUREDCOLOR;
 
