@@ -62,7 +62,7 @@ You can compile the source code normally (see "Compiling") and put the binary in
 - "`cam_centertoggle`" and "`cam2_centertoggle`" are no longer exclusive to Automatic!
 - See private messages as host! (Code from [SRB2Classic](https://codeberg.org/srb2classic/srb2classic))
 - Lifted maxsend limits
-- This build uses econfig.cfg instead of config.cfg due to the many options SRB2-edit provides
+- This build uses econfig.cfg instead of config.cfg due to the many options SRB2 Banpyura provides
 
 ## Modding and Debugging
 - "`renderhitbox`" in multiplayer
@@ -82,7 +82,7 @@ You can compile the source code normally (see "Compiling") and put the binary in
   | Param      | Desc      |
   | ------------- | ------------- |
   | `-v` | Only show variables and/or commands from vanilla SRB2 only.  |
-  | `-c` | Only show variables and/or commands that are in SRB2-edit, and not vanilla. |
+  | `-c` | Only show variables and/or commands that are in SRB2 Banpyura, and not vanilla. |
   | `-a` | Only show variables and/or commands created by addons |
 
 - Console variables can no longer be used as an argument for `help`, they now print their info instead of just their current and default value. "`cvarinfo`" lets you hide the flags and origin sections ("Show All" by default).
@@ -179,7 +179,7 @@ end)
 
 ## player_t
 - `player.ipaddress` (string) (read only): For use in moderation addons, this only returns a string for the server of the players IP address. Clients _cannot_ see other clients' IP addresses. The only way for other clients to know is if the server sends a command with them or something :p
-- `player.muted` (boolean) (read + write): Returns whether or not the player is muted. (though changes may not be reflected in servers not running edit)
+- `player.muted` (boolean) (read + write): Returns whether or not the player is muted. (though changes may not be reflected in servers not running edit/Banpyura)
 
 
 ## renderflags_t
