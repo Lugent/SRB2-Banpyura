@@ -1,4 +1,4 @@
-# SRB2-edit
+# Sonic Robo Blast 2 Banpyura
 
 A custom net-compatible build of SRB2 that includes a plethora of fixes, improvements, and new features.
 
@@ -15,7 +15,7 @@ It works without any additional assets, just copy the build to your existing SRB
 
 # Changes
 
-## HUD
+## HUD/Menus
 - Change menu's background color! ("`menubgcolor`", Video Options -> Heads-Up Display, "Menu Background Color")
 - Lowercase menus inspired by SRB2Kart Saturn! ("`menucaps`", Video Options -> Heads-Up Display, "Uppercase Menus")
 - The background of the Addons menu is now translucent.
@@ -24,11 +24,16 @@ It works without any additional assets, just copy the build to your existing SRB
 - Toggle screen wipes to speed up gameplay! ("`wipes`", not effective in Marathon Run)
 - "Quit Game" and "Abort" options are red colored.
 - Perfstats blue text uses sky color instead.
-- Thin captions and thin FPS! (Load "tinyfontfix.pk3" for music note on thin captions)
 - Tics per second counter! ("`showtps`") (Code from [SRB2Classic](https://codeberg.org/srb2classic/srb2classic) and TSoURDt3rd)
+- New camera options!
+  - "`cam_clipping`": off = noclip, on = vanilla, exact = 3D platformer-style clip
+  - "`cam_exact`": off = vanilla, on = precise camera movement
+  - Combine `cam_clipping 2`, `cam_exact on`, and `cam_speed 1` for a Roblox-like camera!
+- Server connection shows the types of addons loaded by the server! ("`showaddoninfo`", Code from [SRB2Kart Saturn](https://github.com/Indev450/SRB2Kart-Saturn/pull/224))
+
+- Thin captions and thin FPS! (Load "tinyfontfix.pk3" for music note on thin captions)
 - See your ping in frame delay instead of milliseconds! ("`pingmeasurement`")
 - Compact FPS/TPS info! ("`compactinfo`")
-
 - Master Server list background for better readability!
 - Server Menu before joining! ("`showserverinfo`") (Code from [SRB2Classic](https://codeberg.org/srb2classic/srb2classic))
 - Joining netgame shows progress bar on "checking files" ([Lugent's PR](https://git.do.srb2.org/STJr/SRB2/-/merge_requests/2446) [Lugent's PR](https://git.do.srb2.org/STJr/SRB2/-/merge_requests/2556))
@@ -39,27 +44,27 @@ It works without any additional assets, just copy the build to your existing SRB
 - Crosshairs can invert pixels behind, to improve their visibility ("`crosshair_invert`" and "`crosshair2_invert`")
 
 ## Visual
-- Toggable mobj pitch/roll functional (3D rotation for models on slopes, like DRRR). Option located in Video Options -> Level, "Pitch/Roll Rotation"
-- Ring-Racers-styled screen quakes! ("`rr_quakes`" in console)
 - Toggleable Screenshake effects! ("`earthquake`", ported from SRB2Classic by @archiNiko)
 - Better "Fake Contrast"! (https://git.do.srb2.org/STJr/SRB2/-/merge_requests/2680, @GLideKS)
-- View rollangle is interpolated!
-- Experimental translation support for models! ("`gl_modeltranslations`")
 - Render distance for OpenGL! ("`gr_renderdistance`", https://git.srb2.org/Hanicef/SRB2Classic/-/merge_requests/4, @GLideKS)
 - Configurable minimum sector brightness! ("`r_secbright`", ported from [SRB2 Legacy](https://github.com/srb2-preservation/srb2-legacy))
 - Added 1360x768 resolution (personal use)
 - Light Dithering from [SRB2Classic](https://codeberg.org/srb2classic/srb2classic)
 - Removed RR's fake contrast since it makes brightness off on walls.
 
+- Toggleable mobj pitch/roll functional (3D rotation for models on slopes, like DRRR). Option located in Video Options -> Level, "Pitch/Roll Rotation"
+- Ring-Racers-styled screen quakes! ("`rr_quakes`" in console)
+- Experimental translation support for models! ("`gl_modeltranslations`")
+- View rollangle is interpolated!
+
 ## Gameplay / Netplay
-- Skin change at any time. Turn off `restrictmoveskinchange` to be able to do this.
+- Skin change at any time
 - Addfilelocal from SRB2K Saturn! (use "`addfilelocal`" command or press R-ALT in the addons menu)
 - Minimum input delay from SRB2Kart Saturn/Ring Racers! ("`mindelay`")
 - Improved startup times! (Code from [SRB2Classic](https://codeberg.org/srb2classic/srb2classic))
 - "`cam_centertoggle`" and "`cam2_centertoggle`" are no longer exclusive to Automatic!
 - See private messages as host! (Code from [SRB2Classic](https://codeberg.org/srb2classic/srb2classic))
 - Lifted maxsend limits
-- This build uses econfig.cfg instead of config.cfg due to the many options SRB2-edit provides
 
 ## Modding and Debugging
 - "`renderhitbox`" in multiplayer
@@ -67,7 +72,6 @@ It works without any additional assets, just copy the build to your existing SRB
 - "`freezelevel`" debug command (Be careful using when clients are connected!)
 - HUD camera struct updates position in first person! (credits [Jiskster](https://git.do.srb2.org/STJr/SRB2/-/merge_requests/2629) & [Hanicef](https://git.do.srb2.org/Hanicef/SRB2Classic/-/commit/681bd160f5be3925a97d798d00e67b32a8c1df71))
 - `v.cachePatch` accepts a second parameter for rotation! (https://git.do.srb2.org/STJr/SRB2/-/merge_requests/2662)
-- Added "`TR`" as an alias to "`TICRATE`" in Lua
 - "`getlogfile`" command (Prints the absolute path of the current log, useful when latest-log.txt is sym-linked to a different log)
 
 ## GIFs
@@ -81,11 +85,11 @@ It works without any additional assets, just copy the build to your existing SRB
   | Param      | Desc      |
   | ------------- | ------------- |
   | `-v` | Only show variables and/or commands from vanilla SRB2 only.  |
-  | `-c` | Only show variables and/or commands that are in this build, and not vanilla. |
-  | `-a` | Only show variables and/or commands created by addons. |
+  | `-c` | Only show variables and/or commands that are in SRB2 Banpyura, and not vanilla. |
+  | `-a` | Only show variables and/or commands created by addons |
 
 - Console variables can no longer be used as an argument for `help`, they now print their info instead of just their current and default value. "`cvarinfo`" lets you hide the flags and origin sections ("Show All" by default).
-- "`cycle`" command (`cycle <cvar> [values]`): Inaccessible by Lua. Cycles given values on the cvar if the current value is found in the list (also loops around). Fails if the current value is not found, unless `-b` is specified (starts at the first arg if so).
+- "`cycle`" command (`cycle <cvar> [values]`): Cycles given values on the cvar if the current value is found in the list (also loops around). Fails if the current value is not found, unless `-b` is specified (starts at the first arg if so). Inaccessible by Lua.
 
 # Lua Additions
 
@@ -139,46 +143,48 @@ It works without any additional assets, just copy the build to your existing SRB
 Example script that uses manual interpolation:
 ```lua
 local scroll = 0
-addHook("HUD",function(v,p,cam)
-	local width = (v.width() / v.dupx())*FU
-	if v.isNewTic()
-		scroll = ($ + 4*FU) % width
-	end
-	local x = (scroll + (4*v.timeFraction())) % width
-	v.drawScaled(x, 100*FU, FU, v.cachePatch("MISSING"),V_SNAPTOLEFT)
+addHook("HUD", function(v)
+	local width = (v.width() / v.dupx()) * FU
 
-	v.drawScaled(scroll, 140*FU, FU, v.cachePatch("MISSING"),V_SNAPTOLEFT)
-end,"uncappedgame")
+	if v.isNewTic() then
+		scroll = ($ + FU * 4) % width
+	end
+
+	local x = (scroll + v.timeFraction() * 4) % width
+	v.drawScaled(x, FU * 100, FU, v.cachePatch("MISSING"), V_SNAPTOLEFT)
+
+	v.drawScaled(scroll, FU * 140, FU, v.cachePatch("MISSING"), V_SNAPTOLEFT)
+end, "uncappedgame")
 ```
 
-- `M_Random`* : Same as `v.Random*` functions, except also client-sided and not limited to HUD hooks.
+- `M_Random*` : Same as `v.Random*` functions, except also client-sided and not limited to HUD hooks.
 
 ## Hooks
-- `"uncappedgame"` : A new hud hook that runs during gameplay, except not bound to the 35 fps limit. Introduces new functions into the draw for manual interpolation. (WIP)
+- `"uncappedgame"` : A new HUD hook that runs during gameplay, except not bound to the 35 FPS limit. Introduces new functions into the draw for manual interpolation.
 
 ## mobj_t
-- `mobj.pitch/roll` : Now rotates mobjs and models in 3D space.
+- `mobj.pitch/roll` : Rotates mobjs and models in 3D space.
 - `mobj.resetinterp` : Resets ALL interpolation values. (`P_SetOrigin` only resets positional interpolation values)
 
 
 Example that tilts your character in their 3D direction:
 ```lua
-addHook("PlayerThink",function(p)
-    local me = p.mo
-    if not (me and me.valid) then return end
+addHook("PlayerThink", function(player)
+    local mo = player.mo
+    if not (mo and mo.valid) then return end
 
-    local angle = R_PointToAngle2(0,0, me.momx,me.momy)
-    local mang = R_PointToAngle2(0,0, FixedHypot(me.momx, me.momy), me.momz)
+    local angle = R_PointToAngle2(0, 0, mo.momx, mo.momy)
+    local mang = R_PointToAngle2(0, 0, FixedHypot(mo.momx, mo.momy), mo.momz)
     mang = InvAngle($)
 
-    me.roll = FixedMul(mang, sin(angle))
-    me.pitch = FixedMul(mang, cos(angle))
+    mo.roll = FixedMul(mang, sin(angle))
+    mo.pitch = FixedMul(mang, cos(angle))
 end)
 ```
 
 ## player_t
 - `player.ipaddress` (string) (read only): For use in moderation addons, this only returns a string for the server of the players IP address. Clients _cannot_ see other clients' IP addresses. The only way for other clients to know is if the server sends a command with them or something :p
-- `player.muted` (boolean) (read + write): Returns whether or not the player is muted. (though changes may not be reflected in servers not running this build)
+- `player.muted` (boolean) (read + write): Returns whether or not the player is muted. (though changes may not be reflected in servers not running edit/Banpyura)
 
 
 ## renderflags_t
@@ -188,13 +194,11 @@ end)
 
 
 ## eflags_t
-- `MFE_NOPITCHROLLEASING` : When "pitchroll-easing" is toggled, adding this eflag will not ease the pitch/roll axis this tic. Removed at the end of MobjThinker.
+- `MFE_NOPITCHROLLEASING` : When `pitchroll-easing` is toggled, adding this eflag will not ease the pitch/roll axis this tic. Removed at the end of MobjThinker.
 
 # Compiling
 
 See [SRB2 Wiki/Source code compiling](http://wiki.srb2.org/wiki/Source_code_compiling)
-
-If you get compilation errors referring to booleans/pointers, try reverting any of these commits: [8b70f98](https://github.com/luigi-budd/SRB2-edit/commit/8b70f986a65a735030e611c0bcf36161b4cdd505), [2160051](https://github.com/luigi-budd/SRB2-edit/commit/2160051f055eed0fa1cdf0f4034534f60dfe2c0a), [0cb43b9](https://github.com/luigi-budd/SRB2-edit/commit/0cb43b90763d58386bf97ab6fcf732636cb5d48e), [6acca94](https://github.com/luigi-budd/SRB2-edit/commit/6acca940af796845b64ec6a3db74451735c9c023)
 
 
 # Sonic Robo Blast 2

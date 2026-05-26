@@ -1294,7 +1294,7 @@ static void R_SplitSprite(vissprite_t *sprite)
 		newsprite->cut |= SC_TOP;
 		if (!(sector->lightlist[i].caster->fofflags & FOF_NOSHADE))
 		{
-			lightnum = max((*sector->lightlist[i].lightlevel >> LIGHTSEGSHIFT), cv_secbright.value);
+			lightnum = max(*sector->lightlist[i].lightlevel, cv_secbright.value) >> LIGHTSEGSHIFT;
 
 			if (lightnum < 0)
 				spritelights = scalelight[0];
@@ -1760,7 +1760,7 @@ static void R_ProjectSprite(mobj_t *thing)
 	fixed_t gz = 0, gzt = 0;
 	INT32 heightsec, phs;
 	INT32 light = 0;
-	fixed_t this_scale, highresscale;
+	fixed_t this_scale;
 	fixed_t spritexscale, spriteyscale;
 
 	// rotsprite
@@ -1972,14 +1972,9 @@ static void R_ProjectSprite(mobj_t *thing)
 
 	if (thing->skin && ((skin_t *)thing->skin)->flags & SF_HIRES)
 	{
-		fixed_t high_res = ((skin_t *)thing->skin)->highresscale;
-		spritexscale = FixedMul(spritexscale, high_res);
-		spriteyscale = FixedMul(spriteyscale, high_res);
-		highresscale = high_res;
-	}
-	else
-	{
-		highresscale = FRACUNIT;
+		fixed_t highresscale = ((skin_t *)thing->skin)->highresscale;
+		spritexscale = FixedMul(spritexscale, highresscale);
+		spriteyscale = FixedMul(spriteyscale, highresscale);
 	}
 
 	if (spritexscale < 1 || spriteyscale < 1)
@@ -1997,8 +1992,8 @@ static void R_ProjectSprite(mobj_t *thing)
 		if ((thing->renderflags & RF_FLIPOFFSETS) && flip)
 			flipoffset = -1;
 
-		spr_offset += FixedDiv(interp.spritexoffset, highresscale) * flipoffset;
-		spr_topoffset += FixedDiv(interp.spriteyoffset, highresscale) * flipoffset;
+		spr_offset += interp.spritexoffset * flipoffset;
+		spr_topoffset += interp.spriteyoffset * flipoffset;
 	}
 
 	if (flip)
@@ -2315,7 +2310,7 @@ static void R_ProjectSprite(mobj_t *thing)
 	{
 		light = P_GetSectorLightNumAt(thing->subsector->sector, interp.x, interp.y, splat ? gz : gzt);
 
-		INT32 lightnum = max((*thing->subsector->sector->lightlist[light].lightlevel >> LIGHTSEGSHIFT), cv_secbright.value);
+		INT32 lightnum = max(*thing->subsector->sector->lightlist[light].lightlevel, cv_secbright.value) >> LIGHTSEGSHIFT;
 		if (lightnum < 0)
 			spritelights = scalelight[0];
 		else if (lightnum >= LIGHTLEVELS)
@@ -2705,7 +2700,7 @@ void R_AddSprites(sector_t *sec, INT32 lightlevel)
 	{
 		if (sec->heightsec == -1) lightlevel = sec->lightlevel;
 
-		lightnum = max((lightlevel >> LIGHTSEGSHIFT), cv_secbright.value);
+		lightnum = max(lightlevel, cv_secbright.value) >> LIGHTSEGSHIFT;
 
 		if (lightnum < 0)
 			spritelights = scalelight[0];
